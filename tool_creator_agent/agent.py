@@ -5,6 +5,7 @@ from google.adk.runners import Runner
 from google.genai import types
 from tools.create_tool_tool import create_tool
 from tools.test_tool_tool import test_tool
+from tools.search_perplexity import search_perplexity
 from google.adk.tools import built_in_code_execution
 from dotenv import load_dotenv
 
@@ -17,12 +18,12 @@ with open(instruction_path, "r") as f:
     agent_instruction = str(f.read().strip())
 
 # Define the agent
-sub_agent = Agent(
+root_agent = Agent(
     name="tool_creation_agent",
     model="gemini-2.0-flash",  # Use Gemini model
     description="Agent that creates and manages tools.",
     instruction=agent_instruction,
-    tools=[create_tool, test_tool],
+    tools=[create_tool, test_tool, search_perplexity],
 ) 
 
 
